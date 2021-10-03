@@ -1,0 +1,19 @@
+{
+    "name": "jonatas/php-mvc-project",
+    "description": "Exemplo de projeto mvc",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Jônatas",
+            "email": "jonatasjr.019@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "files": [],
+        "psr-4": {
+            "App\\" : "app/"
+        }
+    }
+}
