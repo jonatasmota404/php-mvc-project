@@ -33,6 +33,18 @@ function params($uri ,$matchedUri): array
     return [];
 }
 
+function formatParams($uri, $params): array
+{
+    $uri = explode('/', ltrim($uri, '/'));
+    $paramsData = [];
+
+    foreach ($params as $index => $param) {
+        $paramsData[$uri[$index - 1]] = $param;
+    }
+
+    return $paramsData;
+}
+
 function router(){
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $routes = routes();
@@ -41,6 +53,7 @@ function router(){
     if (empty($matchedUri)){
         $matchedUri = regexMatchArrayRoutes($uri, $routes);
         $params = params($uri, $matchedUri);
+        $params = formatParams($uri, $params);
 
         var_dump($params);
     }
