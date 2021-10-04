@@ -27,7 +27,7 @@ function router(){
 
     $matchedUri = matchUriInRoutesArray($uri, $routes);
     if (empty($matchedUri)){
-        $$matchedUri = regexMatchArrayRoutes($uri, $routes);
+        $matchedUri = regexMatchArrayRoutes($uri, $routes);
     }
 
     var_dump($matchedUri);
