@@ -26,7 +26,7 @@ function params($uri ,$matchedUri): array
     if (!empty($matchedUri)) {
         $matchedParams = array_keys($matchedUri)[0];
         return array_diff(
-            explode("/", ltrim($uri, '/')),
+            $uri,
             explode("/", ltrim($matchedParams, '/'))
         );
     }
@@ -35,7 +35,6 @@ function params($uri ,$matchedUri): array
 
 function formatParams($uri, $params): array
 {
-    $uri = explode('/', ltrim($uri, '/'));
     $paramsData = [];
 
     foreach ($params as $index => $param) {
@@ -52,6 +51,7 @@ function router(){
     $matchedUri = matchUriInRoutesArray($uri, $routes);
     if (empty($matchedUri)){
         $matchedUri = regexMatchArrayRoutes($uri, $routes);
+        $uri = explode("/", ltrim($uri, '/'));
         $params = params($uri, $matchedUri);
         $params = formatParams($uri, $params);
 
