@@ -44,9 +44,13 @@ function formatParams($uri, $params): array
     return $paramsData;
 }
 
+/**
+ * @throws Exception
+ */
 function router(){
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $routes = routes();
+    $params = null;
 
     $matchedUri = matchUriInRoutesArray($uri, $routes);
     if (empty($matchedUri)){
@@ -54,9 +58,12 @@ function router(){
         $uri = explode("/", ltrim($uri, '/'));
         $params = params($uri, $matchedUri);
         $params = formatParams($uri, $params);
-
-        var_dump($params);
     }
 
-    //var_dump($matchedUri);
+    if (!empty($matchedUri)){
+        loadController($matchedUri, $params);
+        return;
+    }
+
+    throw new Exception('Uri não encontrada');
 }
